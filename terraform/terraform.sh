@@ -16,7 +16,6 @@ if [[ ! -f "environments/${WORKSPACE}.tfvars" ]]; then
 fi
 
 # Select workspace
-
 terraform workspace select $WORKSPACE || terraform workspace new $WORKSPACE
 
 case $ACTION in
