@@ -2,28 +2,15 @@ resource "aws_cloudfront_distribution" "website" {
   enabled = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
-  aliases = [var.cloudfront_config.custom_domain]
+  aliases = []
   price_class = var.cloudfront_config.price_class
   origin {
-    domain_name = var.cloudfront_config.regional_bucket_domain_name
+    domain_name = var.cloudfront_config.bucket_domain_name
     origin_id = "S3-${var.cloudfront_config.bucket_name}"
 
     s3_origin_config {
       origin_access_identity = var.cloudfront_config.origin_access_identity_path
     }
-  }
-
-# Handle SPA routing
-  custom_error_response {
-    error_code         = 403
-    response_code      = 200
-    response_page_path = "/index.html"
-  }
-
-  custom_error_response {
-    error_code         = 404
-    response_code      = 200
-    response_page_path = "/index.html"
   }
 
   default_cache_behavior {
