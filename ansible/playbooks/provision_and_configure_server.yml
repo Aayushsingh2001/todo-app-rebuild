@@ -14,14 +14,4 @@
   roles: 
     - common
     - docker
-    - otel-collector
-
-- name: Configuration of Monitoring Servers
-  hosts: monitoring_ec2_instances
-  gather_facts: yes
-  become: yes
-  roles: 
-    - monitoring
-
-
     

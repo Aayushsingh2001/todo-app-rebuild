@@ -2,10 +2,10 @@ resource "aws_cloudfront_distribution" "website" {
   enabled = true
   is_ipv6_enabled     = true
   default_root_object = "index.html"
-  aliases = []
+  aliases = [var.cloudfront_config.custom_domain]
   price_class = var.cloudfront_config.price_class
   origin {
-    domain_name = var.cloudfront_config.bucket_domain_name
+    domain_name = var.cloudfront_config.regional_bucket_domain_name
     origin_id = "S3-${var.cloudfront_config.bucket_name}"
 
     s3_origin_config {
