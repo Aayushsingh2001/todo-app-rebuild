@@ -11,13 +11,19 @@ resource "aws_iam_role" "ec2_role" {
             Principal = {
                 Service = "ec2.amazonaws.com"
             }
+        },
+        {
+          Action = "sts:AssumeRole"
+          Effect = "Allow"
+          Principal = {
+            AWS = "arn:aws:iam::120569639577:role/dev-ec2-ecr-role"
+          }
         }
     ]
   })
 }
 
 #ECR Access policy for EC2 role
-
 resource "aws_iam_role_policy" "ecr_access" {
   name = "${var.environment}-ecr-access"
   role = aws_iam_role.ec2_role.id
