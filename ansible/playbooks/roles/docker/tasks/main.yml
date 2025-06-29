@@ -67,7 +67,7 @@
 
 - name: Get Backend repository information
   shell: |
-    aws ecr describe-repositories --repository-names {{ backend_ecr_repository_name }} --region
+    aws ecr describe-repositories --repository-names {{ backend_ecr_repository_name }} --region {{ aws_region }}
   environment: 
     AWS_ACCESS_KEY_ID: "{{ aws_access_key }}"
     AWS_SECRET_ACCESS_KEY: "{{ aws_secret_key }}"
