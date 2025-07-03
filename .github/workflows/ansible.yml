@@ -76,13 +76,13 @@ jobs:
    - name: Extract S3 bucket name from inventory
      id: get-bucket
      run: |
-      BUCKET_NAME=$(grep "frontend_bucket_name=" ansible/inventory | cut -d"=" -f2)
+      BUCKET_NAME=$(grep "frontend_bucket_name" ansible/inventory | cut -d"=" -f2)
       echo "bucket_name=$BUCKET_NAME" >> $GITHUB_OUTPUT
 
    - name: Extract cloudfront distribution id from inventory
      id: get-cf-distribution
      run: |
-        CF_DISTRIBUTION_NAME=$(grep "cloudfront_distribution_id=" ansible/inventory | cut -d"=" -f2)
+        CF_DISTRIBUTION_NAME=$(grep "cloudfront_distribution_id" ansible/inventory | cut -d"=" -f2)
         echo "cloudfront_distribution_id=$CF_DISTRIBUTION_NAME" >> $GITHUB_OUTPUT
 
    - name: Deploy Frontend
