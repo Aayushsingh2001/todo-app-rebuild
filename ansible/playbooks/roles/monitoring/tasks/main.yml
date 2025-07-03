@@ -72,7 +72,7 @@
   shell: |
     cd {{ monitoring_dir }}
     docker-compose down
-  ignore_errors: yes
+  ignore_errors: true #yes
 
 - name: Start monitoring stack
   shell: |

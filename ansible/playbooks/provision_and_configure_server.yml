@@ -1,7 +1,7 @@
 ---
 - name: Provision Ec2 instance & install XX
   hosts: localhost
-  gather_facts: no
+  gather_facts: false  #no
   roles:
     - ecr_setup
 
@@ -9,8 +9,8 @@
   hosts: launched_ec2_instances
   vars:
     monitoring_instance_ip: "{{ groups['monitoring_ec2_instances'][0] }}"
-  gather_facts: yes
-  become: yes
+  gather_facts: true #yes
+  become: true  #yes
   roles: 
     - common
     - docker
