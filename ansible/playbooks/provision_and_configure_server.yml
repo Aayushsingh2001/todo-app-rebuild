@@ -7,11 +7,16 @@
 
 - name: Configuration of Ec2 instances
   hosts: launched_ec2_instances
-  vars:
-    monitoring_instance_ip: "{{ groups['monitoring_ec2_instances'][0] }}"
   gather_facts: true #yes
   become: true  #yes
   roles: 
     - common
     - docker
+
+- name: Configuration of Monitoring Servers
+  hosts: monitoring_ec2_instances
+  gather_facts: true #yes
+  become: true  #yes
+  roles: 
+    - monitoring
     

@@ -48,21 +48,6 @@ services:
       - prometheus
     restart: unless-stopped
 
-  loki:
-    image: grafana/loki:latest
-    user: root
-    volumes:
-      - ./loki:/etc/loki:ro
-      - loki_data:/tmp/loki
-    ports:
-      - "3100:3100"
-    depends_on:
-      - grafana
-    command:
-      - "--config.file=/etc/loki/local-config.yml"
-    restart: unless-stopped
-
 volumes:
   prometheus_data:
   grafana_data:
-  loki_data:
