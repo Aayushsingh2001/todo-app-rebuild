@@ -10,7 +10,7 @@
   gather_facts: true #yes
   become: true  #yes
   roles: 
-    - common
+    - common 
     - docker
 
 - name: Configuration of Monitoring Servers

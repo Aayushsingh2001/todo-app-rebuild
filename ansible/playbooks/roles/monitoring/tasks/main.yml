@@ -42,15 +42,15 @@
     - "{{ monitoring_dir }}/prometheus/data"
     - "{{ monitoring_dir }}/grafana"
 
-# - name: Create Loki Directories
-#   file:
-#     path: "{{ item }}"
-#     state: directory
-#     mode: "0755"
-#   with_items:
-#     - "{{ monitoring_dir }}/loki"
-#     - "{{ monitoring_dir }}/loki/tsdb"
-#     - "{{ monitoring_dir }}/loki/chunks"
+- name: Create Loki Directories
+  file:
+    path: "{{ item }}"
+    state: directory
+    mode: "0755"
+  with_items:
+    - "{{ monitoring_dir }}/loki"
+    - "{{ monitoring_dir }}/loki/tsdb"
+    - "{{ monitoring_dir }}/loki/chunks"
 
 - name: Copy Docker Compose file
   template: 
@@ -63,10 +63,10 @@
     dest: "{{ monitoring_dir }}/prometheus/prometheus.yml"
     # ref: https://github.com/prometheus/prometheus/blob/release-3.3/config/testdata/conf.good.yml
 
-# - name: Copy Loki config
-#   template: 
-#     src: loki-config.yml.j2
-#     dest: "{{ monitoring_dir }}/loki/local-config.yml"
+- name: Copy Loki config
+  template: 
+    src: loki-config.yml.j2
+    dest: "{{ monitoring_dir }}/loki/local-config.yml"
 
 - name: Stop existing containers
   shell: |
@@ -88,7 +88,7 @@
     - 9090 # Prometheus
     - 3000 # Grafana
     - 9100 # Node exporter
-    # - 3100 # Loki
+    - 3100 # Loki
 
 - name: Show service status
   shell: docker-compose ps
@@ -125,17 +125,17 @@
       isDefault: true
     status_code: [200, 409] # 409 means that already exists
 
-# - name: Configure Loki datasource
-#   uri:
-#     url: "http://localhost:3000/api/datasources"
-#     method: POST
-#     user: admin
-#     password: "{{ grafana_admin_password }}"
-#     force_basic_auth: yes
-#     body_format: json
-#     body:
-#       name: "Loki"
-#       type: "loki"
-#       url: "http://loki:3100"
-#       access: "proxy"
-#     status_code: [200, 409] # 409 means that already exists
+- name: Configure Loki datasource
+  uri:
+    url: "http://localhost:3000/api/datasources"
+    method: POST
+    user: admin
+    password: "{{ grafana_admin_password }}"
+    force_basic_auth: yes
+    body_format: json
+    body:
+      name: "Loki"
+      type: "loki"
+      url: "http://loki:3100"
+      access: "proxy"
+    status_code: [200, 409] # 409 means that already exists
